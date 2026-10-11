@@ -4,6 +4,14 @@
   "description": "e销宝：面向小团队、服务 C 端客户的实时销售话术 Copilot。",
   "icon": "assets/icon.svg",
   "license": "MIT",
+  "homepage": "https://github.com/cqai-club/cqai-dsh-plugin-xiaobao#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cqai-club/cqai-dsh-plugin-xiaobao.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cqai-club/cqai-dsh-plugin-xiaobao/issues"
+  },
   "keywords": [
     "dsh",
     "dsh-plugin",
