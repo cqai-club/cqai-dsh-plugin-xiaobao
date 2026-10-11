@@ -1,0 +1,6 @@
+# e销宝 的 Bundle 配置贡献：只插入本插件独占的一条 Host 行。
+# 不重写 Profile 的其他行；所有服务端能力与浏览器 UI 都由该行提供。
+- insert:
+    - id: cqai-xiaobao
+      name: cqai-dsh-plugin-xiaobao
+      config: {}

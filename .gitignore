@@ -1,0 +1,26 @@
+# 开发与发布过程中产生的临时产物
+.npm-cache/
+.npm-global/
+.npmrc-publish
+.verify-install/
+*.tgz
+
+# 依赖（本插件零运行时依赖；此条只为防止将来误提交）
+node_modules/
+
+# 运行时数据：种子数据随包交付、必须提交；
+# 但运行时生成的审计日志不属于源码。
+data/seed/audit.jsonl
+xiaobao/
+
+# 日志与调试产物
+*.log
+.probe*
+.probe-*
+
+# 编辑器与操作系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

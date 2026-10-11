@@ -1,0 +1,8 @@
+{
+  "id": "cqai-dsh-plugin-xiaobao",
+  "version": "0.1.0",
+  "main": "./lib/index.js",
+  "description": "e销宝：实时销售话术 Copilot（意图识别、已审核话术检索、结构化建议、人工接管）",
+  "engines": { "dsh": "^0.2.0-rc.2" },
+  "client": { "main": "./lib/client.js" }
+}

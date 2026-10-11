@@ -1,0 +1,462 @@
+{
+  "version": 1,
+  "generated_by": "scripts/build-fixtures.mjs",
+  "note": "标准意图对应 data/seed/phrase-cards.json 的 intent。handoff 表示按 lib/host/rules.js 的规则应当要求人工接管。",
+  "samples": [
+    {
+      "id": "u001",
+      "utterance": "你们这个价格有点贵啊",
+      "intent": "price_concern",
+      "handoff": false,
+      "note": "最典型的开场异议"
+    },
+    {
+      "id": "u002",
+      "utterance": "太贵了吧，能便宜点吗",
+      "intent": "price_concern",
+      "handoff": false,
+      "note": "异议与优惠意图混合"
+    },
+    {
+      "id": "u003",
+      "utterance": "这个价格比我想的高不少",
+      "intent": "price_concern",
+      "handoff": false,
+      "note": "委婉表达"
+    },
+    {
+      "id": "u004",
+      "utterance": "有没有便宜一点的方案",
+      "intent": "price_concern",
+      "handoff": false,
+      "note": "明确问低价方案"
+    },
+    {
+      "id": "u005",
+      "utterance": "我就想要个最基础的，按月付行不行",
+      "intent": "price_concern",
+      "handoff": false,
+      "note": "预算约束"
+    },
+    {
+      "id": "u006",
+      "utterance": "别家比你便宜一半",
+      "intent": "price_concern",
+      "handoff": false,
+      "note": "竞品价格施压"
+    },
+    {
+      "id": "u007",
+      "utterance": "你们成本多少，给我个实在价",
+      "intent": "discount_question",
+      "handoff": true,
+      "note": "索要内部价，必须转人工"
+    },
+    {
+      "id": "u008",
+      "utterance": "现在有没有优惠活动",
+      "intent": "discount_question",
+      "handoff": false,
+      "note": "常规优惠询问"
+    },
+    {
+      "id": "u009",
+      "utterance": "新用户有折扣吗",
+      "intent": "discount_question",
+      "handoff": false,
+      "note": "新用户优惠"
+    },
+    {
+      "id": "u010",
+      "utterance": "能给我张券吗",
+      "intent": "discount_question",
+      "handoff": false,
+      "note": "索券"
+    },
+    {
+      "id": "u011",
+      "utterance": "多送一年行不行",
+      "intent": "discount_question",
+      "handoff": true,
+      "note": "索要额外赠品，越权"
+    },
+    {
+      "id": "u012",
+      "utterance": "我怕买了用不上",
+      "intent": "effectiveness_uncertain",
+      "handoff": false,
+      "note": "效果顾虑"
+    },
+    {
+      "id": "u013",
+      "utterance": "会不会用几天就闲置了",
+      "intent": "effectiveness_uncertain",
+      "handoff": false,
+      "note": "使用习惯顾虑"
+    },
+    {
+      "id": "u014",
+      "utterance": "万一不适合我怎么办",
+      "intent": "effectiveness_uncertain",
+      "handoff": false,
+      "note": "后悔顾虑"
+    },
+    {
+      "id": "u015",
+      "utterance": "你能保证有用吗",
+      "intent": "effectiveness_uncertain",
+      "handoff": true,
+      "note": "要求效果承诺，必须转人工"
+    },
+    {
+      "id": "u016",
+      "utterance": "你敢承诺一定有效果吗",
+      "intent": "effectiveness_uncertain",
+      "handoff": true,
+      "note": "逼承诺"
+    },
+    {
+      "id": "u017",
+      "utterance": "这个适合我做研究用吗",
+      "intent": "fit_concern",
+      "handoff": false,
+      "note": "场景适配"
+    },
+    {
+      "id": "u018",
+      "utterance": "我们几个人能一起用吗",
+      "intent": "fit_concern",
+      "handoff": false,
+      "note": "协作需求"
+    },
+    {
+      "id": "u019",
+      "utterance": "同事也要编辑同一份文档",
+      "intent": "fit_concern",
+      "handoff": false,
+      "note": "协作场景"
+    },
+    {
+      "id": "u020",
+      "utterance": "需要权限管理，你们支持吗",
+      "intent": "fit_concern",
+      "handoff": false,
+      "note": "权限需求"
+    },
+    {
+      "id": "u021",
+      "utterance": "能传多大的文件，我有很多扫描件",
+      "intent": "fit_concern",
+      "handoff": false,
+      "note": "容量限制"
+    },
+    {
+      "id": "u022",
+      "utterance": "能放视频吗",
+      "intent": "fit_concern",
+      "handoff": false,
+      "note": "边界确认"
+    },
+    {
+      "id": "u023",
+      "utterance": "你和 XX 比怎么样",
+      "intent": "competitor_comparison",
+      "handoff": false,
+      "note": "直接比较"
+    },
+    {
+      "id": "u024",
+      "utterance": "为什么选你们不选别人",
+      "intent": "competitor_comparison",
+      "handoff": false,
+      "note": "价值追问"
+    },
+    {
+      "id": "u025",
+      "utterance": "听说 XX 会泄露数据，是这样吗",
+      "intent": "competitor_comparison",
+      "handoff": false,
+      "note": "转述竞品负面传闻"
+    },
+    {
+      "id": "u026",
+      "utterance": "XX 是不是快倒闭了",
+      "intent": "competitor_comparison",
+      "handoff": false,
+      "note": "未核实传闻"
+    },
+    {
+      "id": "u027",
+      "utterance": "你们都有什么功能",
+      "intent": "feature_question",
+      "handoff": false,
+      "note": "基础功能询问"
+    },
+    {
+      "id": "u028",
+      "utterance": "支持哪些平台",
+      "intent": "feature_question",
+      "handoff": false,
+      "note": "平台支持"
+    },
+    {
+      "id": "u029",
+      "utterance": "有没有离线编辑",
+      "intent": "feature_question",
+      "handoff": false,
+      "note": "具体功能"
+    },
+    {
+      "id": "u030",
+      "utterance": "能导出吗，数据能带走吗",
+      "intent": "feature_question",
+      "handoff": false,
+      "note": "数据可迁移性"
+    },
+    {
+      "id": "u031",
+      "utterance": "同步会丢数据吗",
+      "intent": "feature_question",
+      "handoff": false,
+      "note": "可靠性顾虑"
+    },
+    {
+      "id": "u032",
+      "utterance": "你们会看我的笔记吗",
+      "intent": "privacy_security",
+      "handoff": false,
+      "note": "内容隐私"
+    },
+    {
+      "id": "u033",
+      "utterance": "内容安全吗，数据存哪里",
+      "intent": "privacy_security",
+      "handoff": false,
+      "note": "存储位置"
+    },
+    {
+      "id": "u034",
+      "utterance": "会不会被拿去训练模型",
+      "intent": "privacy_security",
+      "handoff": false,
+      "note": "数据用途"
+    },
+    {
+      "id": "u035",
+      "utterance": "我要把数据全删掉，怎么注销",
+      "intent": "privacy_security",
+      "handoff": false,
+      "note": "删除诉求"
+    },
+    {
+      "id": "u036",
+      "utterance": "我再想想吧",
+      "intent": "hesitation",
+      "handoff": false,
+      "note": "标准犹豫"
+    },
+    {
+      "id": "u037",
+      "utterance": "过几天再说",
+      "intent": "hesitation",
+      "handoff": false,
+      "note": "推延"
+    },
+    {
+      "id": "u038",
+      "utterance": "我问问家里人再决定",
+      "intent": "hesitation",
+      "handoff": false,
+      "note": "需要他人决策"
+    },
+    {
+      "id": "u039",
+      "utterance": "我得跟领导汇报一下",
+      "intent": "hesitation",
+      "handoff": false,
+      "note": "组织决策"
+    },
+    {
+      "id": "u040",
+      "utterance": "不需要，谢谢",
+      "intent": "explicit_refusal",
+      "handoff": true,
+      "note": "明确拒绝，应停止推进"
+    },
+    {
+      "id": "u041",
+      "utterance": "不感兴趣",
+      "intent": "explicit_refusal",
+      "handoff": true,
+      "note": "明确拒绝"
+    },
+    {
+      "id": "u042",
+      "utterance": "别再联系我了",
+      "intent": "explicit_refusal",
+      "handoff": true,
+      "note": "要求停止触达"
+    },
+    {
+      "id": "u043",
+      "utterance": "再打我就投诉你",
+      "intent": "explicit_refusal",
+      "handoff": true,
+      "note": "拒绝并威胁投诉"
+    },
+    {
+      "id": "u044",
+      "utterance": "我要投诉你们服务",
+      "intent": "complaint_escalation",
+      "handoff": true,
+      "note": "投诉"
+    },
+    {
+      "id": "u045",
+      "utterance": "你们服务太差了，我要找你们领导",
+      "intent": "complaint_escalation",
+      "handoff": true,
+      "note": "升级投诉"
+    },
+    {
+      "id": "u046",
+      "utterance": "我要去消协投诉",
+      "intent": "complaint_escalation",
+      "handoff": true,
+      "note": "监管投诉"
+    },
+    {
+      "id": "u047",
+      "utterance": "我已经找律师了",
+      "intent": "complaint_escalation",
+      "handoff": true,
+      "note": "法律威胁"
+    },
+    {
+      "id": "u048",
+      "utterance": "我要退款",
+      "intent": "refund_request",
+      "handoff": true,
+      "note": "标准退款"
+    },
+    {
+      "id": "u049",
+      "utterance": "刚买就想退，能退钱吗",
+      "intent": "refund_request",
+      "handoff": true,
+      "note": "购买后反悔"
+    },
+    {
+      "id": "u050",
+      "utterance": "退钱还要赔偿我误工费",
+      "intent": "refund_request",
+      "handoff": true,
+      "note": "索赔"
+    },
+    {
+      "id": "u051",
+      "utterance": "买的不好了想退",
+      "intent": "refund_request",
+      "handoff": true,
+      "note": "退款"
+    },
+    {
+      "id": "u052",
+      "utterance": "怎么开始用，有教程吗",
+      "intent": "onboarding_question",
+      "handoff": false,
+      "note": "上手"
+    },
+    {
+      "id": "u053",
+      "utterance": "怎么导入我原来的笔记",
+      "intent": "onboarding_question",
+      "handoff": false,
+      "note": "迁移"
+    },
+    {
+      "id": "u054",
+      "utterance": "会自动续费吗",
+      "intent": "billing_question",
+      "handoff": false,
+      "note": "续费规则"
+    },
+    {
+      "id": "u055",
+      "utterance": "怎么取消订阅",
+      "intent": "billing_question",
+      "handoff": false,
+      "note": "取消订阅"
+    },
+    {
+      "id": "u056",
+      "utterance": "扣了我两次钱",
+      "intent": "billing_question",
+      "handoff": false,
+      "note": "实际扣款争议"
+    },
+    {
+      "id": "u057",
+      "utterance": "登录不上，密码忘了",
+      "intent": "account_issue",
+      "handoff": false,
+      "note": "账号问题"
+    },
+    {
+      "id": "u058",
+      "utterance": "这个东西能治我的病吗",
+      "intent": "high_risk_domain",
+      "handoff": true,
+      "note": "医疗主张，必须转人工"
+    },
+    {
+      "id": "u059",
+      "utterance": "投资这个能保本吗",
+      "intent": "high_risk_domain",
+      "handoff": true,
+      "note": "金融主张，必须转人工"
+    },
+    {
+      "id": "u060",
+      "utterance": "能帮我看看别人的订单吗",
+      "intent": "internal_request",
+      "handoff": true,
+      "note": "索要他人信息"
+    },
+    {
+      "id": "u061",
+      "utterance": "介个东西咋卖",
+      "intent": "price_concern",
+      "handoff": false,
+      "note": "口语化/方言，允许低置信度"
+    },
+    {
+      "id": "u062",
+      "utterance": "多少钱那",
+      "intent": "price_concern",
+      "handoff": false,
+      "note": "口语化，允许低置信度"
+    },
+    {
+      "id": "u063",
+      "utterance": "咋用啊这",
+      "intent": "onboarding_question",
+      "handoff": false,
+      "note": "口语化"
+    },
+    {
+      "id": "u064",
+      "utterance": "能便宜不",
+      "intent": "price_concern",
+      "handoff": false,
+      "note": "口语化，允许低置信度"
+    },
+    {
+      "id": "u065",
+      "utterance": "我要退款你们这个不行",
+      "intent": "refund_request",
+      "handoff": true,
+      "note": "双方同时发言，且含退款"
+    }
+  ]
+}

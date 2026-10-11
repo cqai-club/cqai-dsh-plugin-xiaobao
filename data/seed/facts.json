@@ -1,0 +1,239 @@
+[
+  {
+    "id": "competitor-policy-v2",
+    "product_id": "jianji-pro",
+    "topic": "competitor",
+    "statement": "我们不在销售沟通中评价竞品的价格与缺陷。",
+    "details": [
+      "可以客观说明简记 Pro 自己的功能与限制。",
+      "不得声称竞品存在未经核实的安全问题或数据泄露。"
+    ],
+    "source": "种子政策文档 / competitor",
+    "reviewed_by": "seed-fixture",
+    "escalation": "suggest",
+    "status": "approved",
+    "effective_from": "2026-10-01T00:00:00+08:00",
+    "expires_at": null,
+    "updated_at": "2026-10-01T00:00:00+08:00",
+    "version": 1
+  },
+  {
+    "id": "delivery-policy-v2",
+    "product_id": "jianji-pro",
+    "topic": "delivery",
+    "statement": "简记 Pro 是数字订阅，支付成功后立即开通，没有物流环节。",
+    "details": [
+      "账号权益在支付成功后通常 1 分钟内生效。",
+      "若 10 分钟后仍未生效，需要联系客服核查订单。"
+    ],
+    "source": "种子政策文档 / delivery",
+    "reviewed_by": "seed-fixture",
+    "escalation": "none",
+    "status": "approved",
+    "effective_from": "2026-10-01T00:00:00+08:00",
+    "expires_at": null,
+    "updated_at": "2026-10-01T00:00:00+08:00",
+    "version": 1
+  },
+  {
+    "id": "discount-policy-v3",
+    "product_id": "jianji-pro",
+    "topic": "discount",
+    "statement": "当前公开优惠只有新用户首年 8 折。",
+    "details": [
+      "首年 8 折仅限首次订阅，且不能与其他优惠叠加。",
+      "除此之外不存在其他公开折扣、内部价或限时活动。",
+      "销售人员无权给出未在本条声明中的任何折扣。"
+    ],
+    "source": "种子政策文档 / discount",
+    "reviewed_by": "seed-fixture",
+    "escalation": "suggest",
+    "status": "approved",
+    "effective_from": "2026-10-01T00:00:00+08:00",
+    "expires_at": null,
+    "updated_at": "2026-10-01T00:00:00+08:00",
+    "version": 1
+  },
+  {
+    "id": "feature-core-v4",
+    "product_id": "jianji-pro",
+    "topic": "feature",
+    "statement": "简记 Pro 的核心能力是笔记、双向链接、标签、全平台同步与离线编辑。",
+    "details": [
+      "支持 Windows、macOS、iOS、Android 与网页版。",
+      "支持导出为 Markdown 与 PDF。",
+      "离线编辑的内容会在恢复网络后自动合并。"
+    ],
+    "source": "种子政策文档 / feature",
+    "reviewed_by": "seed-fixture",
+    "escalation": "none",
+    "status": "approved",
+    "effective_from": "2026-10-01T00:00:00+08:00",
+    "expires_at": null,
+    "updated_at": "2026-10-01T00:00:00+08:00",
+    "version": 1
+  },
+  {
+    "id": "feature-limit-v2",
+    "product_id": "jianji-pro",
+    "topic": "feature_limit",
+    "statement": "简记 Pro 有两条明确的能力边界。",
+    "details": [
+      "单个附件上限 200MB。",
+      "个人版与家庭版都不提供团队协作权限管理，那属于企业版能力。"
+    ],
+    "source": "种子政策文档 / feature_limit",
+    "reviewed_by": "seed-fixture",
+    "escalation": "none",
+    "status": "approved",
+    "effective_from": "2026-10-01T00:00:00+08:00",
+    "expires_at": null,
+    "updated_at": "2026-10-01T00:00:00+08:00",
+    "version": 1
+  },
+  {
+    "id": "forbidden-claims-v3",
+    "product_id": "jianji-pro",
+    "topic": "compliance",
+    "statement": "以下表达在任何销售沟通中都不允许出现。",
+    "details": [
+      "不许承诺「保证有效」「一定有效」「百分之百」。",
+      "不许编造限时优惠、虚假截止日期或虚假稀缺。",
+      "不许承诺未在政策中声明的折扣、赠品或赔付。",
+      "不许声称笔记内容绝对不可能丢失。"
+    ],
+    "forbidden_claims": [
+      "保证有效",
+      "一定有效",
+      "百分之百",
+      "绝对安全",
+      "绝对不会丢失",
+      "限时最后一天",
+      "仅此一次",
+      "内部价",
+      "成本价"
+    ],
+    "source": "种子政策文档 / compliance",
+    "reviewed_by": "seed-fixture",
+    "escalation": "required",
+    "status": "approved",
+    "effective_from": "2026-10-01T00:00:00+08:00",
+    "expires_at": null,
+    "updated_at": "2026-10-01T00:00:00+08:00",
+    "version": 1
+  },
+  {
+    "id": "pricing-policy-v3",
+    "product_id": "jianji-pro",
+    "topic": "pricing",
+    "statement": "简记 Pro 提供个人版与家庭版两种订阅。",
+    "details": [
+      "个人版 98 元/年，限 1 个账号使用。",
+      "家庭版 168 元/年，最多 5 个账号共享。",
+      "按月订阅为个人版 12 元/月。",
+      "价格与套餐内容以官网结算页显示为准。"
+    ],
+    "source": "种子政策文档 / pricing",
+    "reviewed_by": "seed-fixture",
+    "escalation": "none",
+    "status": "approved",
+    "effective_from": "2026-10-01T00:00:00+08:00",
+    "expires_at": null,
+    "updated_at": "2026-10-01T00:00:00+08:00",
+    "version": 1
+  },
+  {
+    "id": "privacy-policy-v3",
+    "product_id": "jianji-pro",
+    "topic": "privacy",
+    "statement": "笔记内容在客户端加密后上传，服务端不保存明文笔记。",
+    "details": [
+      "同步传输使用 TLS，静态存储使用服务端加密。",
+      "平台不读取、不分析、不出售用户笔记内容。",
+      "用户可以随时导出全部数据为 Markdown，也可以删除账号与全部数据。",
+      "数据处理的具体范围以隐私政策页面为准。"
+    ],
+    "source": "种子政策文档 / privacy",
+    "reviewed_by": "seed-fixture",
+    "escalation": "none",
+    "status": "approved",
+    "effective_from": "2026-10-01T00:00:00+08:00",
+    "expires_at": null,
+    "updated_at": "2026-10-01T00:00:00+08:00",
+    "version": 1
+  },
+  {
+    "id": "refund-policy-v3",
+    "product_id": "jianji-pro",
+    "topic": "refund",
+    "statement": "订阅后 7 天内未使用付费专享功能可以申请全额退款。",
+    "details": [
+      "7 天从支付成功时刻起算。",
+      "已使用付费专享功能的订单按剩余订阅期比例退款。",
+      "退款申请需要提供订单号，由客服在 3 个工作日内处理。",
+      "退款与赔付的最终判定权在客服，销售人员不得当场承诺结果。"
+    ],
+    "source": "种子政策文档 / refund",
+    "reviewed_by": "seed-fixture",
+    "escalation": "required",
+    "status": "approved",
+    "effective_from": "2026-10-01T00:00:00+08:00",
+    "expires_at": null,
+    "updated_at": "2026-10-01T00:00:00+08:00",
+    "version": 1
+  },
+  {
+    "id": "support-policy-v2",
+    "product_id": "jianji-pro",
+    "topic": "support",
+    "statement": "售后支持为工作日 9:00 到 18:00 在线客服。",
+    "details": [
+      "非工作时间的留言会在下一个工作日处理。",
+      "账号安全与数据问题优先处理。"
+    ],
+    "source": "种子政策文档 / support",
+    "reviewed_by": "seed-fixture",
+    "escalation": "none",
+    "status": "approved",
+    "effective_from": "2026-10-01T00:00:00+08:00",
+    "expires_at": null,
+    "updated_at": "2026-10-01T00:00:00+08:00",
+    "version": 1
+  },
+  {
+    "id": "sync-limit-v2",
+    "product_id": "jianji-pro",
+    "topic": "reliability",
+    "statement": "同步服务承诺月度可用性 99.5%。",
+    "details": [
+      "这是服务等级目标，不是对个人用户的赔偿承诺。",
+      "偶发的同步延迟通常在几分钟内自行恢复。"
+    ],
+    "source": "种子政策文档 / reliability",
+    "reviewed_by": "seed-fixture",
+    "escalation": "suggest",
+    "status": "approved",
+    "effective_from": "2026-10-01T00:00:00+08:00",
+    "expires_at": null,
+    "updated_at": "2026-10-01T00:00:00+08:00",
+    "version": 1
+  },
+  {
+    "id": "trial-policy-v2",
+    "product_id": "jianji-pro",
+    "topic": "trial",
+    "statement": "新用户可以免费试用 14 天，试用期无需绑定支付方式。",
+    "details": [
+      "试用期内功能与付费版一致。",
+      "试用到期后自动回到免费版，不会自动扣费。"
+    ],
+    "source": "种子政策文档 / trial",
+    "reviewed_by": "seed-fixture",
+    "escalation": "none",
+    "status": "approved",
+    "effective_from": "2026-10-01T00:00:00+08:00",
+    "expires_at": null,
+    "updated_at": "2026-10-01T00:00:00+08:00",
+    "version": 1
+  }
+]

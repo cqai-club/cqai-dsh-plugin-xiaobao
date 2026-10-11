@@ -1,0 +1,11 @@
+# 跨平台一致的换行：源码统一 LF，避免 Windows 检出时产生整文件 diff。
+* text=auto eol=lf
+
+# 二进制资源不做换行转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
