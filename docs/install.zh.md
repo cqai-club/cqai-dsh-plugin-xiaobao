@@ -39,7 +39,7 @@ dsh plugin --profile <profile> add @cqaiclub/cqai-dsh-plugin-xiaobao
 指定版本（推荐，避免后续发版带来意外升级）：
 
 ```bash
-dsh plugin --profile <profile> add @cqaiclub/cqai-dsh-plugin-xiaobao@0.2.0
+dsh plugin --profile <profile> add @cqaiclub/cqai-dsh-plugin-xiaobao@0.2.1
 ```
 
 在「插件管理 → 添加插件」里填写包名 `@cqaiclub/cqai-dsh-plugin-xiaobao` 也是同样的效果。
@@ -140,7 +140,7 @@ $DSH_HOME\xiaobao\knowledge\
 
 ## 升级
 
-从 `0.1.x` 的旧包 `cqai-dsh-plugin-xiaobao` 升级到 `0.2.0` 时，先停用或移除旧包，再添加 `@cqaiclub/cqai-dsh-plugin-xiaobao@0.2.0`。保留 `$DSH_HOME/xiaobao/` 下的数据；不要同时启用两个包，以免重复注册相同面板、路由和 Host 行。新的包名也需要更新 Profile 里原来的 `name` 或通过插件管理重新添加。
+从 `0.1.x` 的旧包 `cqai-dsh-plugin-xiaobao` 升级到 `0.2.1` 时，先停用或移除旧包，再添加 `@cqaiclub/cqai-dsh-plugin-xiaobao@0.2.1`。保留 `$DSH_HOME/xiaobao/` 下的数据；不要同时启用两个包，以免重复注册相同面板、路由和 Host 行。新的包名也需要更新 Profile 里原来的 `name` 或通过插件管理重新添加。
 
 1. 记住当前版本（`dsh.plugin.json` 的 `version`）。
 2. 用新版目录替换旧目录。

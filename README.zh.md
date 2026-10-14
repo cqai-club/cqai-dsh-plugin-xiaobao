@@ -90,7 +90,7 @@ node scripts/selfcheck.mjs       # 交付前自检（含全部测试与评测）
 
 **零运行时依赖**：`dependencies` 为空，只用 Node 内建模块与平台注入的服务。因此本插件不需要 `npm install` 即可加载。
 
-npm 包名为 `@cqaiclub/cqai-dsh-plugin-xiaobao`。在插件管理里安装，或运行 `dsh plugin --profile <profile> add @cqaiclub/cqai-dsh-plugin-xiaobao@0.2.0`。从旧的无作用域包升级时先停用旧包，数据仍保留在 `$DSH_HOME/xiaobao/`。详见[安装说明](docs/install.zh.md)、[发版说明](docs/release.zh.md)和[更新记录](CHANGELOG.md)。
+npm 包名为 `@cqaiclub/cqai-dsh-plugin-xiaobao`。在插件管理里安装，或运行 `dsh plugin --profile <profile> add @cqaiclub/cqai-dsh-plugin-xiaobao@0.2.1`。从旧的无作用域包升级时先停用旧包，数据仍保留在 `$DSH_HOME/xiaobao/`。详见[安装说明](docs/install.zh.md)、[发版说明](docs/release.zh.md)和[更新记录](CHANGELOG.md)。
 
 `lib/client.js` 是手写的模块工厂（不是构建产物）。改它的时候注意两件事：工厂形状必须是 `window.__ModuleLoader__.load({id, factory})`（形状不对时平台不会报错，插件只是永远不出现），以及它只能同步 `require` 平台种子表里的模块（`react`、`react/jsx-runtime`）。两者都有测试守着。
 

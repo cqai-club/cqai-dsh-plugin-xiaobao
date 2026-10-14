@@ -15,14 +15,14 @@
 
 ## 首次 npm 配置
 
-当前包迁移到 `@cqaiclub` 作用域，发布账号必须有 `cqaiclub` 组织的写入权限。旧的无作用域包不会自动转移到新组织。
+当前包迁移到 `@cqaiclub` 作用域，发布账号必须有 `cqaiclub` 组织的写入权限。旧的无作用域包不会自动转移到新组织。`0.2.0` 已于 2026-10-14 完成首次公开发布；当前待发版本为 `0.2.1`，合并后用于完成第一次 OIDC 自动发布。
 
 首次发布与配置 Trusted Publisher 需要 npm 账号认证；2FA / WebAuthn 由账号拥有者完成。npm 要求包已存在后才能配置 Trusted Publisher。先检查并打包，再首次发布：
 
 ```bash
 node scripts/selfcheck.mjs
 npm pack --ignore-scripts --pack-destination /path/to/release-artifacts
-npm publish /path/to/release-artifacts/cqaiclub-cqai-dsh-plugin-xiaobao-0.2.0.tgz --access public
+npm publish /path/to/release-artifacts/bootstrap-package.tgz --access public
 ```
 
 为包配置以下 GitHub Trusted Publisher：
@@ -51,7 +51,7 @@ npm trust list @cqaiclub/cqai-dsh-plugin-xiaobao
 ## 发布后验证
 
 ```bash
-npm view @cqaiclub/cqai-dsh-plugin-xiaobao@0.2.0 version dist.integrity --registry=https://registry.npmjs.org/
+npm view @cqaiclub/cqai-dsh-plugin-xiaobao@0.2.1 version dist.integrity --registry=https://registry.npmjs.org/
 ```
 
 还应从 registry 的实际 tarball 解包，运行包里的 `scripts/selfcheck.mjs`，确认随包代码、知识种子和技能完整。GitHub Release 的 tag、版本和 tarball 应与 npm 版本对应。

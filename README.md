@@ -37,7 +37,7 @@ See [`docs/install.zh.md`](docs/install.zh.md). Short version: point the Plugins
 
 No `npm install` is needed — `dependencies` is empty; only Node built-ins and injected platform services are used.
 
-The npm package is `@cqaiclub/cqai-dsh-plugin-xiaobao`. Install it through the app's plugin manager or `dsh plugin --profile <profile> add @cqaiclub/cqai-dsh-plugin-xiaobao@0.2.0`. When migrating from the old unscoped package, disable it before enabling the new package; existing data stays under `$DSH_HOME/xiaobao/`. See [release instructions](docs/release.zh.md) and [changes](CHANGELOG.md).
+The npm package is `@cqaiclub/cqai-dsh-plugin-xiaobao`. Install it through the app's plugin manager or `dsh plugin --profile <profile> add @cqaiclub/cqai-dsh-plugin-xiaobao@0.2.1`. When migrating from the old unscoped package, disable it before enabling the new package; existing data stays under `$DSH_HOME/xiaobao/`. See [release instructions](docs/release.zh.md) and [changes](CHANGELOG.md).
 
 ## Data location
 
