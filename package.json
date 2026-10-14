@@ -1,6 +1,6 @@
 {
-  "name": "cqai-dsh-plugin-xiaobao",
-  "version": "0.1.1",
+  "name": "@cqaiclub/cqai-dsh-plugin-xiaobao",
+  "version": "0.2.0",
   "description": "e销宝：面向小团队、服务 C 端客户的实时销售话术 Copilot。",
   "icon": "assets/icon.svg",
   "license": "MIT",
@@ -46,6 +46,7 @@
     "dsh.plugin.json",
     "README.md",
     "README.zh.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "dsh": {

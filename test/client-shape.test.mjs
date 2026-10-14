@@ -75,7 +75,7 @@ async function loadClient() {
 
 test("client.js 注册了正确 id 的模块工厂", async () => {
 	const { definition } = await loadClient();
-	assert.equal(definition.id, "cqai-dsh-plugin-xiaobao", "模块 id 必须与包名一致");
+	assert.equal(definition.id, "@cqaiclub/cqai-dsh-plugin-xiaobao", "模块 id 必须与包名一致");
 });
 
 test("工厂导出 apply 与 inject", async () => {
@@ -144,6 +144,7 @@ test("apply 注册了实时标签页、配置页与工作台", async () => {
 	assert.equal(tabRegistrations.length, 1, "应注册一个右侧标签类型");
 	const tab = tabRegistrations[0];
 	assert.equal(tab.kind, "xiaobao", "标签 kind 必须是 xiaobao");
+	assert.equal(tab.id, "cqai-dsh-plugin-xiaobao/live", "迁移包名时必须保留已有标签身份");
 	assert.equal(tab.priority, "extension");
 	assert.equal(typeof tab.title, "function");
 	assert.ok(Array.isArray(tab.guide) && tab.guide.length === 1, "应提供一条引导入口");
@@ -158,7 +159,7 @@ test("apply 注册了实时标签页、配置页与工作台", async () => {
 
 	// 配置页的 key 必须是包名，否则插件管理器不会渲染它。
 	const config = slotRegistrations.find((entry) => entry.definition.name === "plugins.bundle.config");
-	assert.equal(config.definition.key, "cqai-dsh-plugin-xiaobao", "配置页 key 必须是包名");
+	assert.equal(config.definition.key, "@cqaiclub/cqai-dsh-plugin-xiaobao", "配置页 key 必须是包名");
 
 	// 标签主体的 key 必须与标签类型注册 id 一致。
 	const body = slotRegistrations.find((entry) => entry.definition.name === "sidebar.right.pane.tab");
@@ -168,6 +169,7 @@ test("apply 注册了实时标签页、配置页与工作台", async () => {
 	const panel = slotRegistrations.find((entry) => entry.definition.name === "sidebar.panellist");
 	const main = slotRegistrations.find((entry) => entry.definition.name === "main");
 	assert.equal(panel.definition.id, main.definition.key, "左侧入口 id 必须与 main 的 key 一致");
+	assert.equal(panel.definition.id, "cqai-xiaobao", "迁移包名时必须保留已有工作台身份");
 
 	// 每个注册都必须有渲染函数。
 	for (const entry of slotRegistrations) {

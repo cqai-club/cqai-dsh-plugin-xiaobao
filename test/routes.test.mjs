@@ -64,21 +64,24 @@ function makeResponse() {
  * 知识库落在临时目录：测试绝不能碰用户真实的 `$DSH_HOME/xiaobao/`，
  * 否则一次测试就会污染或覆盖用户的业务数据。
  */
-async function mountPlugin() {
+async function mountPlugin({ defaultConfig = false, llm, selection } = {}) {
 	let handler;
 	let disposed = false;
 	const logs = [];
 	const registered = { tools: [], skills: [] };
-	const dataRoot = await mkdtemp(join(tmpdir(), "xiaobao-route-"));
-	tempRoots.push(dataRoot);
+	const temporaryRoot = await mkdtemp(join(tmpdir(), "xiaobao-route-"));
+	const dataRoot = defaultConfig ? join(temporaryRoot, "xiaobao", "knowledge") : temporaryRoot;
+	tempRoots.push(temporaryRoot);
 
 	const ctx = {
 		logger: {
 			info: (message) => logs.push(["info", message]),
 			warn: (message) => logs.push(["warn", message]),
 		},
-		config: {},
-		get: () => void 0,
+		get config() {
+			throw new Error('cannot get property "config" without inject');
+		},
+		get: (key) => key === "llm" ? llm : key === "agentDefaultModel" && selection ? { currentSelection: () => selection } : void 0,
 		effect(factory) {
 			const dispose = factory();
 			return () => {
@@ -129,7 +132,15 @@ async function mountPlugin() {
 		},
 	};
 
-	apply(ctx, { dataRoot });
+	// 安装时 patch 的 config 为 {}；此时应使用 DSH_HOME，不能读取 ctx.config。
+	const previousDshHome = process.env.DSH_HOME;
+	try {
+		if (defaultConfig) process.env.DSH_HOME = temporaryRoot;
+		apply(ctx, defaultConfig ? {} : { dataRoot });
+	} finally {
+		if (previousDshHome === undefined) delete process.env.DSH_HOME;
+		else process.env.DSH_HOME = previousDshHome;
+	}
 	// 技能正文是异步读取的，等一轮微任务让注册发生。
 	await new Promise((resolve) => setTimeout(resolve, 50));
 
@@ -141,7 +152,7 @@ async function mountPlugin() {
 	};
 
 	/** 清理临时知识库。 */
-	const cleanup = () => rm(dataRoot, { recursive: true, force: true });
+	const cleanup = () => rm(temporaryRoot, { recursive: true, force: true });
 
 	return { call, logs, registered, dataRoot, cleanup, isDisposed: () => disposed, handler: () => handler };
 }
@@ -152,9 +163,19 @@ test("health 报告插件身份与知识库规模", async () => {
 	assert.equal(response.status, 200);
 	const payload = response.json();
 	assert.equal(payload.ok, true);
-	assert.equal(payload.plugin, "cqai-dsh-plugin-xiaobao");
+	assert.equal(payload.plugin, "@cqaiclub/cqai-dsh-plugin-xiaobao");
 	assert.ok(payload.knowledge.cards >= 30, `种子卡片应已载入，实际 ${payload.knowledge.cards}`);
 	assert.equal(payload.model, null, "缺席 agentDefaultModel 时应如实报告无模型");
+});
+
+test("安装默认空配置能启动并从 DSH_HOME 读取知识库", async () => {
+	const { call, dataRoot } = await mountPlugin({ defaultConfig: true });
+	const health = await call({ path: "/api/cqai-xiaobao/health" });
+	assert.equal(health.status, 200);
+	assert.equal(health.json().data_root, dataRoot);
+	const knowledge = await call({ path: "/api/cqai-xiaobao/knowledge" });
+	assert.equal(knowledge.status, 200);
+	assert.ok(knowledge.json().cards.length >= 30);
 });
 
 test("非本机请求被拒绝", async () => {
@@ -187,6 +208,58 @@ test("文字链路能产出带来源的建议", async () => {
 	assert.ok(payload.recalled.length > 0, "应召回已审核卡片");
 	assert.ok(payload.sources.some((source) => source.kind === "phrase_card"), "应展示话术卡来源");
 	assert.equal(payload.handoff.required, false);
+	assert.ok(payload.suggestion_id.startsWith("suggestion_"));
+	for (const field of ["customer_assessment", "communication_goal", "strategy"]) assert.ok(payload.suggestion[field].length > 0);
+});
+
+test("连续请求把销售补充交给模型并保留可追溯的轮次与建议标识", async () => {
+	const calls = [];
+	const llm = { async *stream(options) {
+		calls.push(options);
+		yield { type: "text-delta", text: JSON.stringify({ intent: "price_concern", confidence: 0.9, recommended_reply: "我们先确认你的具体使用场景。", human_handoff: false, source_cards: [], policy_refs: [] }) };
+	} };
+	const { call } = await mountPlugin({ llm, selection: { provider: "fixture", model: "fixture-model" } });
+	const sessionId = "continuous-context";
+	const customer = { speaker: "customer", text: "你们这个价格有点贵" };
+	const sales = { speaker: "sales", text: "我已经解释了使用场景，客户仍有顾虑" };
+	const followUp = { speaker: "sales", text: "接下来我应该怎么追问？" };
+	const send = (turn, event, history) => call({ method: "POST", path: "/api/cqai-xiaobao/suggest", body: { utterance: turn.text, speaker: turn.speaker, event_id: event, session_id: sessionId, ...(history === undefined ? {} : { history, history_includes_current: true }) } });
+	const first = (await send(customer, "context-1")).json();
+	const second = (await send(followUp, "context-2", [customer, sales, followUp])).json();
+	assert.equal(second.degraded, false, "销售追问应沿用已知客户场景而不是丢失依据");
+	assert.notEqual(first.suggestion_id, second.suggestion_id, "同一意图的不同轮次应有独立反馈标识");
+	const prompt = calls[1].messages[0].content[0].text;
+	assert.match(prompt, /销售补充：我已经解释了使用场景/);
+	assert.equal(prompt.split(followUp.text).length - 1, 1, "当前输入不能同时出现在历史与本轮栏");
+	await send({ speaker: "customer", text: "价格偏高，具体有什么功能？" }, "context-3");
+	assert.match(calls[2].messages[0].content[0].text, /销售补充：接下来我应该怎么追问？/);
+	const report = (await call({ method: "POST", path: "/api/cqai-xiaobao/debrief", body: { session_id: sessionId } })).json().report;
+	assert.equal(report.customer_turns, 2, "补入已有窗口不应重复记录客户发言");
+	assert.equal(report.sales_turns, 2);
+	assert.equal(report.stats.suggestions, 3);
+	const feedback = (await call({ method: "POST", path: "/api/cqai-xiaobao/feedback", body: { session_id: sessionId, suggestion_id: first.suggestion_id, kind: "accepted", event_id: "context-feedback" } })).json();
+	assert.equal(feedback.feedback.suggestion_id, first.suggestion_id);
+});
+
+test("助手建议不能作为客户历史提交", async () => {
+	const { call } = await mountPlugin();
+	const response = await call({ method: "POST", path: "/api/cqai-xiaobao/suggest", body: { utterance: "价格有点贵", history: [{ speaker: "assistant", text: "未经确认的客户判断" }] } });
+	assert.equal(response.status, 400);
+	assert.ok(response.json().issues.some((issue) => issue.includes("speaker")));
+});
+
+test("客户真正重复同一句时保留上一轮上下文", async () => {
+	const calls = [];
+	const llm = { async *stream(options) {
+		calls.push(options);
+		yield { type: "text-delta", text: JSON.stringify({ intent: "price_concern", confidence: 0.9, recommended_reply: "我们先确认你的具体顾虑。", human_handoff: false, source_cards: [], policy_refs: [] }) };
+	} };
+	const { call } = await mountPlugin({ llm, selection: { provider: "fixture", model: "fixture-model" } });
+	const body = { utterance: "你们这个价格有点贵", session_id: "repeat-context", speaker: "customer" };
+	await call({ method: "POST", path: "/api/cqai-xiaobao/suggest", body: { ...body, event_id: "repeat-1" } });
+	await call({ method: "POST", path: "/api/cqai-xiaobao/suggest", body: { ...body, event_id: "repeat-2", history: [{ speaker: "customer", text: body.utterance }] } });
+	assert.equal(calls.length, 2, "新的同句轮次也要结合新增历史重新判断");
+	assert.equal(calls[1].messages[0].content[0].text.split(body.utterance).length - 1, 2);
 });
 
 test("退款类表达在路由层被判定为必须转人工", async () => {

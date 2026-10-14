@@ -7,7 +7,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { SchemaError, extractJsonObject, normalizeCard, normalizeFact, normalizeSuggestion } from "../lib/shared/schemas.js";
+import { SchemaError, extractJsonObject, normalizeCard, normalizeConversationHistory, normalizeFact, normalizeSuggestion } from "../lib/shared/schemas.js";
 
 /** 一份合法的话术卡输入。 */
 function validCard(overrides = {}) {
@@ -100,6 +100,28 @@ test("合法建议通过校验", () => {
   assert.equal(suggestion.intent, "price_concern");
   assert.equal(suggestion.confidence, 0.86);
   assert.deepEqual(suggestion.source_cards, ["price_concern_001"]);
+});
+
+test("策略字段兼容旧建议并校验文本类型", () => {
+  const old = normalizeSuggestion(validSuggestion(), CONTEXT);
+  assert.equal(old.strategy, undefined);
+  const suggestion = normalizeSuggestion(validSuggestion({
+    customer_assessment: "  价格顾虑有待确认  ", communication_goal: "澄清预算与价值", strategy: "先追问顾虑，再解释已审核的价值",
+  }), CONTEXT);
+  assert.equal(suggestion.customer_assessment, "价格顾虑有待确认");
+  assert.equal(suggestion.communication_goal, "澄清预算与价值");
+  assert.throws(() => normalizeSuggestion(validSuggestion({ strategy: ["不要夹带未知结构"] }), CONTEXT), SchemaError);
+});
+
+test("最近对话只收沟通原文并限制上下文大小", () => {
+  assert.deepEqual(normalizeConversationHistory(undefined), []);
+  assert.throws(() => normalizeConversationHistory([{ speaker: "assistant", text: "模型推测" }]), SchemaError);
+  assert.throws(() => normalizeConversationHistory({ speaker: "sales", text: "补充" }), SchemaError);
+  const history = normalizeConversationHistory(Array.from({ length: 30 }, (_, index) => ({ speaker: "sales", text: `${index}:` + "补".repeat(4500), arbitrary: "忽略" })));
+  assert.equal(history.length, 24);
+  assert.ok(history[0].text.startsWith("6:"));
+  assert.equal(history[0].text.length, 4000);
+  assert.deepEqual(Object.keys(history[0]), ["speaker", "text"]);
 });
 
 test("confidence 越界被拒绝", () => {
