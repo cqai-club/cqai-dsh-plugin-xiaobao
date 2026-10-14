@@ -20,7 +20,7 @@
 ### 方式一：插件管理界面（推荐）
 
 1. 打开「插件管理 → 添加插件」。
-2. 填入 **npm 包名** `cqai-dsh-plugin-xiaobao`，或者本目录的**绝对路径**：
+2. 填入 **npm 包名** `@cqaiclub/cqai-dsh-plugin-xiaobao`，或者本目录的**绝对路径**：
 
    ```text
    C:\Users\Huan LIU\插件\cqai-dsh-plugin-xiaobao
@@ -33,16 +33,16 @@
 插件已发布到 npm，可以直接用包名安装，无需本地目录：
 
 ```bash
-dsh plugin --profile <profile> add cqai-dsh-plugin-xiaobao
+dsh plugin --profile <profile> add @cqaiclub/cqai-dsh-plugin-xiaobao
 ```
 
 指定版本（推荐，避免后续发版带来意外升级）：
 
 ```bash
-dsh plugin --profile <profile> add cqai-dsh-plugin-xiaobao@0.1.0
+dsh plugin --profile <profile> add @cqaiclub/cqai-dsh-plugin-xiaobao@0.2.1
 ```
 
-在「插件管理 → 添加插件」里填写包名 `cqai-dsh-plugin-xiaobao` 也是同样的效果。
+在「插件管理 → 添加插件」里填写包名 `@cqaiclub/cqai-dsh-plugin-xiaobao` 也是同样的效果。
 
 ### 方式三：从本地目录安装
 
@@ -66,7 +66,7 @@ dsh --profile <profile> --dump-config
 
 ```yaml
 - id: cqai-xiaobao
-  name: cqai-dsh-plugin-xiaobao
+  name: "@cqaiclub/cqai-dsh-plugin-xiaobao"
   config: {}
 ```
 
@@ -77,11 +77,11 @@ dsh --profile <profile> --dump-config
 按顺序核对；任一项不符就是安装没完成，而不是功能问题。
 
 1. **右侧边栏出现标签页**：打开任意会话，点右侧栏顶部的「+」，引导页里应出现「e销宝实时陪练」，或直接在标签类型里看到「e销宝」。
-2. **配置页可打开**：「插件管理」里找到 `cqai-dsh-plugin-xiaobao`，它的详情页应渲染出 e销宝 的知识管理界面（六个页签）。
+2. **配置页可打开**：「插件管理」里找到 `@cqaiclub/cqai-dsh-plugin-xiaobao`，它的详情页应渲染出 e销宝 的知识管理界面（七个页签）。
 3. **知识库已就绪**：在配置页看指标卡——「话术卡 30 / 已发布 30 / 产品事实 12」。这说明种子知识注入了空库。
 4. **文字链路可用**：在实时面板底部的输入框粘一句「你们这个价格有点贵」，回车。应出现意图 `price_concern`、主建议、来源里的 `price_concern_001`。
 5. **转人工生效**：输入「我要退款」，应显示「需要人工接管」并给出原因，且不生成承诺性话术。
-6. **左侧工作台**：左侧栏出现「e销宝」入口，点开是同一套知识管理的全宽视图。
+6. **左侧工作台**：左侧栏出现「e销宝」入口，默认打开全宽销售策略对话，也可切换到知识管理。
 
 命令行快速核对（把端口换成本机实际端口，见应用启动日志里的 URL）：
 
@@ -89,7 +89,7 @@ dsh --profile <profile> --dump-config
 curl -s "http://127.0.0.1:<port>/api/cqai-xiaobao/health"
 ```
 
-应返回 JSON，含 `"plugin":"cqai-dsh-plugin-xiaobao"`、`knowledge.cards` 数量与当前模型路由。
+应返回 JSON，含 `"plugin":"@cqaiclub/cqai-dsh-plugin-xiaobao"`、`knowledge.cards` 数量与当前模型路由。
 
 ## 启用语音（可选）
 
@@ -110,9 +110,9 @@ curl -s "http://127.0.0.1:<port>/api/cqai-xiaobao/health"
   name: '@deepseek-ai/dsh-experimental-client-ui-voice-input'
 ```
 
-**首次使用需要下载并校验模型**（SenseVoiceSmall ONNX + Silero VAD，约 1GB），可能需要数分钟。面板上的「开始监听」会触发这一步；准备过程中面板显示 ASR 状态，失败时给出具体阶段与原因。
+**首次使用需要下载并校验模型**（SenseVoiceSmall ONNX + Silero VAD，约 1GB），可能需要数分钟。面板上的「语音输入」或「持续监听」会触发这一步；准备过程中面板显示 ASR 状态，失败时给出具体阶段与原因。
 
-如果语音不可用，面板会如实显示 `ASR 不可用`，并保留下方的手动输入框——这是设计好的降级路径，不是故障。
+如果语音不可用，面板会给出不可用原因，并保留下方的手动输入框——这是设计好的降级路径，不是故障。
 
 ## 首次配置建议
 
@@ -128,7 +128,7 @@ curl -s "http://127.0.0.1:<port>/api/cqai-xiaobao/health"
 
 | 操作 | 做法 | 结果 |
 |---|---|---|
-| 停用 | 插件管理里关闭 `cqai-dsh-plugin-xiaobao` | 标签页、配置页、工作台入口与工具、技能一起移除 |
+| 停用 | 插件管理里关闭 `@cqaiclub/cqai-dsh-plugin-xiaobao` | 标签页、配置页、工作台入口与工具、技能一起移除 |
 | 重新启用 | 插件管理里打开 | 重新加载，知识库从磁盘读回 |
 | 卸载 | 插件管理里移除 | 同上；**不会删除** `$DSH_HOME/xiaobao/` 下的业务数据 |
 
@@ -139,6 +139,8 @@ $DSH_HOME\xiaobao\knowledge\
 ```
 
 ## 升级
+
+从 `0.1.x` 的旧包 `cqai-dsh-plugin-xiaobao` 升级到 `0.2.1` 时，先停用或移除旧包，再添加 `@cqaiclub/cqai-dsh-plugin-xiaobao@0.2.1`。保留 `$DSH_HOME/xiaobao/` 下的数据；不要同时启用两个包，以免重复注册相同面板、路由和 Host 行。新的包名也需要更新 Profile 里原来的 `name` 或通过插件管理重新添加。
 
 1. 记住当前版本（`dsh.plugin.json` 的 `version`）。
 2. 用新版目录替换旧目录。
@@ -156,7 +158,7 @@ $DSH_HOME\xiaobao\knowledge\
 | 右侧标签类型 | `ctx.sidebarRightTabs.register({id, kind, priority, title, guide})` | 引导页里能看到「e销宝实时陪练」 |
 | 配置页槽位 | `plugins.bundle.config`，`key` 为包名 | 插件详情页能渲染出知识管理 |
 | 面板槽位 | `main` + `sidebar.panellist` | 左侧栏出现「e销宝」 |
-| 语音远程服务 | `ctx.remote.speech.{catalog,prepare,transcribe}` | 面板上 ASR 标签显示「可用」 |
+| 语音远程服务 | `ctx.remote.speech.{catalog,prepare,transcribe}` 的 `RemoteResult`：检查 `ok` 并读取 `value` | 开始监听时识别器准备成功，转写返回真实文本；准备期间可停止等待 |
 | WAV 输入 | 16 kHz / 单声道 / PCM16 / 规范头 | 语音报「识别失败」时查这里；`test/client-shape.test.mjs` 有字节级断言 |
 
 ## 故障排查

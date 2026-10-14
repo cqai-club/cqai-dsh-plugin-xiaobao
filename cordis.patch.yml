@@ -2,5 +2,5 @@
 # 不重写 Profile 的其他行；所有服务端能力与浏览器 UI 都由该行提供。
 - insert:
     - id: cqai-xiaobao
-      name: cqai-dsh-plugin-xiaobao
+      name: "@cqaiclub/cqai-dsh-plugin-xiaobao"
       config: {}

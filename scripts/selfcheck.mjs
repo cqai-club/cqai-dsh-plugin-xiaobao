@@ -84,7 +84,11 @@ record("dependencies 为空（零运行时依赖）", Object.keys(pkg.dependenci
 const patch = await readFile(join(ROOT, "cordis.patch.yml"), "utf8");
 const insertCount = (patch.match(/- insert:/gu) ?? []).length;
 record("cordis.patch.yml 只有一条 insert", insertCount === 1, `实际 ${insertCount} 条`);
-record("cordis.patch.yml 行名与包名一致", patch.includes(`name: ${pkg.name}`));
+// Scoped 包名以 @ 开头，YAML 必须加引号；同时兼容原来的无引号形式。
+const patchName = patch.match(/^\s+name:\s*(.*?)\s*(?:#.*)?$/mu)?.[1]?.replace(/^(['"])(.*)\1$/u, "$2");
+record("cordis.patch.yml 包名与 package.json 一致", patchName === pkg.name, String(patchName));
+const protocol = await import("../lib/shared/protocol.js");
+record("Host 协议包名与 package.json 一致", protocol.PLUGIN_ID === pkg.name, protocol.PLUGIN_ID);
 
 // ── 3. 客户端模块工厂形状 ──────────────────────────────────────────────────
 record("客户端以 __ModuleLoader__.load 注册", clientCode.includes("window.__ModuleLoader__.load("));
